@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <title>Frontend Mentor | Dictionary web app</title>
+</head>
+<body>
+
+  <header>
+    <div class="cabecalho">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="38" viewBox="0 0 34 38"><g fill="none" fill-rule="evenodd" stroke="#838383" stroke-linecap="round" stroke-width="1.5"><path d="M1 33V5a4 4 0 0 1 4-4h26.8A1.2 1.2 0 0 1 33 2.2v26.228M5 29h28M5 37h28"/><path stroke-linejoin="round" d="M5 37a4 4 0 1 1 0-8"/><path d="M11 9h12"/></g></svg>
+      </div>
+      <div class="font"></div>
+      <div class="separator-vertical"></div>
+      <div class="theme"></div>
+    </div>
+    <nav>
+      <form action="">
+        <input type="text" placeholder="Search for any word..." autocomplete="off" id="input-word">
+        <button type="submit"><img src="assets/images/icon-search.svg" alt=""></button>
+      </form>
+    </nav>
+  </header>
+  <main>
+    <h1 id="word"></h1>
+    <p id="pronuncia"></p>
+    <div id="audio">
+      <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75"><g fill="#A445ED" fill-rule="evenodd"><circle cx="37.5" cy="37.5" r="37.5" opacity=".25"/><path d="M29 27v21l21-10.5z"/></g></svg>
+    </div>
+    <div id="noun"></div>
+    <h2 class="mean-syn"></h2>
+    <ul id="meaning-noun-list"></ul>
+    <div class="syn">
+      <h2 id="syn">Synonyms</h2>
+      <p id="syn-result"></p>
+    </div>
+    <div id="verb"></div>
+    <h2 class="mean-syn"></h2>
+    <ul id="meaning-verb-list"></ul>
+    <blockquote id="quote"></blockquote>
+  </main>
+
+  <footer>
+    <h3 class="source">Source</h3>
+    <a id="source"></a>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

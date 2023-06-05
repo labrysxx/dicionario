@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Inter:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,700&display=swap');
+
+body {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+}
+
+header {
+  width: 100%;
+}
+
+main {
+  width: 100%;
+}
+
+.separator::after {
+  content: '';
+  display: inline-block;
+  width: 50%;
+  height: 1px;
+  background-color: grey;
+  margin-left: 10px;
+  margin-bottom: 3px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+.source {
+  display: none;
+}
+
+.display-on {
+  display: block;
+}
