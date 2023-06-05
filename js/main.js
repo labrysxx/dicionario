@@ -1,15 +1,14 @@
 const LISTA_NOUN = document.getElementById('meaning-noun-list')
 const LISTA_VERB = document.getElementById('meaning-verb-list')
-const SOURCE = document.getElementById('source')
-const SOURCE_TITLE = document.querySelector('.source')
 const INPUT = document.getElementById('input-word')
 const NOUN = document.getElementById('noun')
 const VERB = document.getElementById('verb')
 const MEAN_SYN = document.querySelectorAll('.mean-syn')
-const AUDIO = document.getElementById('audio')
-const MAIN = document.querySelector('main')
-const FOOTER = document.querySelector('footer')
-let audio = Array()
+
+const AUDIO = document.getElementById('audio').addEventListener('click', () => {
+  let playAudio = new Audio(`${audio[0]}`)
+  playAudio.play()
+})
 
 const FORM = document.querySelector('form').addEventListener('submit', (e) => {
   e.preventDefault()
@@ -20,13 +19,11 @@ const FORM = document.querySelector('form').addEventListener('submit', (e) => {
     limpaDados()  
     populaAudio(data)
     verificaNounVerb(data)
+    word(data)
   })
 })
 
-AUDIO.addEventListener('click', () => {
-  let playAudio = new Audio(`${audio[0]}`)
-  playAudio.play()
-})
+let audio = Array()
 
 function limpaDados() {
   NOUN.innerHTML = ''
@@ -35,6 +32,10 @@ function limpaDados() {
   LISTA_VERB.innerHTML = ''
   MEAN_SYN[0].innerHTML = ''
   MEAN_SYN[1].innerHTML = ''
+  limpaArrayAudio()
+}
+
+function limpaArrayAudio() {
   for(let j = 0; j <= audio.length; j++) {
     audio.pop()
   }
@@ -52,6 +53,18 @@ function populaAudio(data) {
   }
 }
 
+function word(data) {
+  let phonetic = Array()
+  const WORD = document.getElementById('word')
+  const PRONUNCIA = document.getElementById('pronuncia')
+  WORD.innerHTML = `${data[0].word}`
+  for(let i = 0; i < data[0].phonetics.length; i ++) {
+    if(data[0].phonetics[i].text !== undefined) {
+      phonetic.push(data[0].phonetics[i].text)
+    }
+  }
+  PRONUNCIA.innerHTML = `${phonetic[0]}`
+}
 
 function verificaNounVerb(data) {
   for(let i = 0; i < data[0].meanings.length; i++) {
@@ -85,6 +98,8 @@ function verificaNounVerb(data) {
     }
     //verifica se a palavra tem url
     if(data[0].sourceUrls) {
+      const SOURCE = document.getElementById('source')
+      const SOURCE_TITLE = document.querySelector('.source')
       SOURCE_TITLE.classList.add('display-on')
       SOURCE.setAttribute('href', `${data[0].sourceUrls[0]}`)
       SOURCE.setAttribute('target', '_blank')
