@@ -5,35 +5,53 @@ const SOURCE_TITLE = document.querySelector('.source')
 const INPUT = document.getElementById('input-word')
 const NOUN = document.getElementById('noun')
 const VERB = document.getElementById('verb')
-const SIN = document.querySelectorAll('.mean-syn')
 const MEAN_SYN = document.querySelectorAll('.mean-syn')
 const AUDIO = document.getElementById('audio')
 const MAIN = document.querySelector('main')
 const FOOTER = document.querySelector('footer')
+let audio = Array()
 
 const FORM = document.querySelector('form').addEventListener('submit', (e) => {
   e.preventDefault()
   fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${INPUT.value}`)
-    .then(response => {return response.json()})
-    .then(data => {
-      limpaForm()  
-      limpaTela()  
-      verificaNounVerb(data)
-    })
+  .then(response => {return response.json()})
+  .then(data => {
+    limpaForm()  
+    limpaDados()  
+    populaAudio(data)
+    verificaNounVerb(data)
+  })
 })
 
-function limpaTela() {
+AUDIO.addEventListener('click', () => {
+  let playAudio = new Audio(`${audio[0]}`)
+  playAudio.play()
+})
+
+function limpaDados() {
   NOUN.innerHTML = ''
   LISTA_NOUN.innerHTML = ''
   VERB.innerHTML = ''
   LISTA_VERB.innerHTML = ''
   MEAN_SYN[0].innerHTML = ''
   MEAN_SYN[1].innerHTML = ''
+  for(let j = 0; j <= audio.length; j++) {
+    audio.pop()
+  }
 }
 
 function limpaForm() {
   INPUT.value = ''
 }
+
+function populaAudio(data) {
+  for(let i = 0; i < data[0].phonetics.length; i++) {
+    if(data[0].phonetics[i].audio !== '') {
+      audio.push(data[0].phonetics[i].audio)
+    }
+  }
+}
+
 
 function verificaNounVerb(data) {
   for(let i = 0; i < data[0].meanings.length; i++) {
