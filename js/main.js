@@ -1,11 +1,11 @@
 const LISTA_NOUN = document.getElementById('meaning-noun-list')
 const LISTA_VERB = document.getElementById('meaning-verb-list')
-const LISTA_ADJ = document.getElementById('adjective-list')
+const LISTA_SYN = document.getElementById('syn-result')
 const INPUT = document.getElementById('input-word')
 const NOUN = document.getElementById('noun')
 const VERB = document.getElementById('verb')
-const ADJ = document.getElementById('adjective')
 const MEAN_SYN = document.querySelectorAll('.mean-syn')
+const SYN = document.querySelector('.syn')
 
 const AUDIO = document.getElementById('audio').addEventListener('click', () => {
   let playAudio = new Audio(`${audio[0]}`)
@@ -33,8 +33,6 @@ function limpaDados() {
   LISTA_NOUN.innerHTML = ''
   VERB.innerHTML = ''
   LISTA_VERB.innerHTML = ''
-  ADJ.innerHTML = ''
-  LISTA_ADJ.innerHTML = ''
   MEAN_SYN[0].innerHTML = ''
   MEAN_SYN[1].innerHTML = ''
   MEAN_SYN[2].innerHTML = ''
@@ -72,47 +70,45 @@ function word(data) {
   PRONUNCIA.innerHTML = `${phonetic[0]}`
 }
 
+let syn = Array()
+
 function verificaNounVerb(data) {
+  console.log(data)
   for(let i = 0; i < data[0].meanings.length; i++) {
     //verifica se a palavra é substantivo
     if(data[0].meanings[i].partOfSpeech === 'noun') {
       const template = `
-        <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
+      <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
       `
       NOUN.innerHTML = `${template}`
       MEAN_SYN[0].innerHTML = 'Meaning'
       for(let j = 0; j < data[0].meanings[i].definitions.length; j++) {
         const noun = `
         <li>${data[0].meanings[i].definitions[j].definition}</li>
-      `
+        `
         LISTA_NOUN.insertAdjacentHTML('beforeend', noun)
       }
     }
-    //verifica se a palavra é um adjetivo
-    if(data[0].meanings[i].partOfSpeech === 'adjective') {
-      const template = `
-        <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
-      `
-      ADJ.innerHTML = `${template}`
-      MEAN_SYN[1].innerHTML = 'Meaning'
-      for(let j = 0; j < data[0].meanings[i].definitions.length; j++) {
-        const adj = `
-        <li>${data[0].meanings[i].definitions[j].definition}</li>
-      `
-        LISTA_ADJ.insertAdjacentHTML('beforeend', adj)
+    if(data[0].meanings[i].synonyms.length !== 0) {
+      MEAN_SYN[1].innerHTML = 'Synonyms'
+      for(let j = 0; j < data[0].meanings[i].synonyms.length; j++) {
+        const syn = `
+        <li>${data[0].meanings[i].synonyms[j]}</li>
+        `
+        LISTA_SYN.insertAdjacentHTML('beforeend', syn)
       }
     }
     //verifica se a palavra é verbo
     if(data[0].meanings[i].partOfSpeech === 'verb') {
       const template = `
-        <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
+      <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
       `
       VERB.innerHTML = `${template}`
       MEAN_SYN[2].innerHTML = 'Meaning'
       for(let k = 0; k < data[0].meanings[i].definitions.length; k++) {
         const verb = `
         <li>${data[0].meanings[i].definitions[k].definition}</li>
-      `
+        `
         LISTA_VERB.insertAdjacentHTML('beforeend', verb)
       }
     }
