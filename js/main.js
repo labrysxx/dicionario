@@ -1,8 +1,10 @@
 const LISTA_NOUN = document.getElementById('meaning-noun-list')
 const LISTA_VERB = document.getElementById('meaning-verb-list')
+const LISTA_ADJ = document.getElementById('adjective-list')
 const INPUT = document.getElementById('input-word')
 const NOUN = document.getElementById('noun')
 const VERB = document.getElementById('verb')
+const ADJ = document.getElementById('adjective')
 const MEAN_SYN = document.querySelectorAll('.mean-syn')
 
 const AUDIO = document.getElementById('audio').addEventListener('click', () => {
@@ -15,6 +17,7 @@ const FORM = document.querySelector('form').addEventListener('submit', (e) => {
   fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${INPUT.value}`)
   .then(response => {return response.json()})
   .then(data => {
+    console.log(data)
     limpaForm()  
     limpaDados()  
     populaAudio(data)
@@ -68,7 +71,7 @@ function word(data) {
 
 function verificaNounVerb(data) {
   for(let i = 0; i < data[0].meanings.length; i++) {
-    //verifica se a palavra tem substantivo
+    //verifica se a palavra é substantivo
     if(data[0].meanings[i].partOfSpeech === 'noun') {
       const template = `
         <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
@@ -82,7 +85,21 @@ function verificaNounVerb(data) {
         LISTA_NOUN.insertAdjacentHTML('beforeend', noun)
       }
     }
-    //verifica se a palavra tem verbo
+    //verifica se a palavra é um adjetivo
+    if(data[0].meanings[i].partOfSpeech === 'adjective') {
+      const template = `
+        <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
+      `
+      ADJ.innerHTML = `${template}`
+      MEAN_SYN[0].innerHTML = 'Meaning'
+      for(let j = 0; j < data[0].meanings[i].definitions.length; j++) {
+        const adj = `
+        <li>${data[0].meanings[i].definitions[j].definition}</li>
+      `
+        LISTA_ADJ.insertAdjacentHTML('beforeend', adj)
+      }
+    }
+    //verifica se a palavra é verbo
     if(data[0].meanings[i].partOfSpeech === 'verb') {
       const template = `
         <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
