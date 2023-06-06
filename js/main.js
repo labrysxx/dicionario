@@ -35,6 +35,7 @@ function limpaDados() {
   LISTA_VERB.innerHTML = ''
   MEAN_SYN[0].innerHTML = ''
   MEAN_SYN[1].innerHTML = ''
+  MEAN_SYN[2].innerHTML = ''
   limpaArrayAudio()
 }
 
@@ -91,7 +92,7 @@ function verificaNounVerb(data) {
         <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
       `
       ADJ.innerHTML = `${template}`
-      MEAN_SYN[0].innerHTML = 'Meaning'
+      MEAN_SYN[1].innerHTML = 'Meaning'
       for(let j = 0; j < data[0].meanings[i].definitions.length; j++) {
         const adj = `
         <li>${data[0].meanings[i].definitions[j].definition}</li>
@@ -105,7 +106,7 @@ function verificaNounVerb(data) {
         <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
       `
       VERB.innerHTML = `${template}`
-      MEAN_SYN[1].innerHTML = 'Meaning'
+      MEAN_SYN[2].innerHTML = 'Meaning'
       for(let k = 0; k < data[0].meanings[i].definitions.length; k++) {
         const verb = `
         <li>${data[0].meanings[i].definitions[k].definition}</li>
