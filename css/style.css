@@ -1,17 +1,148 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Inter:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,700&display=swap');
 
+:root {
+  --dark-gray: #757575;
+  --dark: #2d2d2d;
+  --light-grey: #e9e9e9;
+  --purple: #A445ED;
+  --light-light-gray: #F4F4F4;
+}
+
 body {
   display: grid;
+  font-family: 'Inter', sans-serif;
+}
+
+header {
+  justify-self: center;
+  width: 40%;
+  margin-bottom: 45px;
+}
+
+form {
+  display: flex;
+  border-radius: 20px;
+  background-color: var(--light-light-gray);
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+form button {
+  margin-right: 10px;
+}
+
+input {
+  border: none;
+  background-color: var(--light-light-gray);
+  border-radius: 20px;
+  padding: 20px 0 20px 24px;
+}
+
+textarea:focus, input:focus, select:focus {
+  box-shadow: 0 0 0 0;
+  border: 0 none;
+  outline: 0;
+} 
+
+main {
+  display: grid;
+  grid-template-columns: 120px auto;
+  grid-template-rows: 70px 50px 1fr;
+  justify-self: center;
+  width: 40%;
+}
+
+#word {
+  font-size: 64px;
+  align-self: self-start;
+  margin: 0;
 }
 
 .separator::after {
   content: '';
   display: inline-block;
-  width: 50%;
+  width: calc(100% - 50px);
   height: 1px;
-  background-color: grey;
+  background-color: var(--light-grey);
   margin-left: 10px;
   margin-bottom: 3px;
+}
+
+.audio-div {
+  justify-self: end;
+}
+
+#pronuncia {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  color: var(--purple);
+}
+
+.separator {
+  font-weight: bold;
+  font-style: italic;
+  color: var(--dark);
+}
+
+.mean-syn {
+  color: var(--dark-gray);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+#meaning-verb-list {
+  grid-column: 1/3;
+  grid-row: 9/10;
+}
+
+#meaning-noun-list {
+  grid-row: 5/6;
+  grid-column: 1/3;
+}
+
+#noun {
+  grid-column: 1/3;
+  grid-row: 3/4;
+}
+
+.noun {
+  grid-row: 4/5;
+}
+
+#verb {
+  grid-column: 1/3;
+  grid-row: 7/8;
+}
+
+.verb {
+  grid-row: 8/9;
+}
+
+#syn-result {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  grid-area: 6 / 2 / 7 / 3;
+  color: var(--purple);
+  font-weight: bold;
+}
+
+.mean-syn {
+  grid-column: 1/3;
+}
+
+.syn {
+  grid-row: 6/7;
+}
+
+.space-syn {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 18px;
+  color: var(--dark);
 }
 
 button {
@@ -27,8 +158,7 @@ button {
   display: block;
 }
 
-textarea:focus, input:focus, select:focus {
-  box-shadow: 0 0 0 0;
-  border: 0 none;
-  outline: 0;
-} 
+footer {
+  justify-self: center;
+  width: 40%;
+}

@@ -6,6 +6,8 @@ const NOUN = document.getElementById('noun')
 const VERB = document.getElementById('verb')
 const MEAN_SYN = document.querySelectorAll('.mean-syn')
 const SYN = document.querySelector('.syn')
+let audio = Array()
+let syn = Array()
 
 const AUDIO = document.getElementById('audio').addEventListener('click', () => {
   let playAudio = new Audio(`${audio[0]}`)
@@ -25,7 +27,17 @@ const FORM = document.querySelector('form').addEventListener('submit', (e) => {
   })
 })
 
-let audio = Array()
+window.addEventListener('DOMContentLoaded', () => {
+  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/keyboard`)
+  .then(response => {return response.json()})
+  .then(data => {
+    limpaForm()  
+    limpaDados()  
+    populaAudio(data)
+    verificaNounVerb(data)
+    word(data)
+  })
+})
 
 function limpaDados() {
   NOUN.innerHTML = ''
@@ -70,10 +82,7 @@ function word(data) {
   PRONUNCIA.innerHTML = `${phonetic[0]}`
 }
 
-let syn = Array()
-
 function verificaNounVerb(data) {
-  console.log(data)
   for(let m = 0; m < data.length; m++) {
     for(let i = 0; i < data[m].meanings.length; i++) {
       //verifica se a palavra é substantivo
@@ -94,7 +103,7 @@ function verificaNounVerb(data) {
         MEAN_SYN[1].innerHTML = 'Synonyms'
         for(let j = 0; j < data[m].meanings[i].synonyms.length; j++) {
           const syn = `
-          <li>${data[m].meanings[i].synonyms[j]}</li>
+          <li class="space-syn">${data[m].meanings[i].synonyms[j]}</li>
           `
           LISTA_SYN.insertAdjacentHTML('beforeend', syn)
         }
