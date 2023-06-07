@@ -17,7 +17,6 @@ const FORM = document.querySelector('form').addEventListener('submit', (e) => {
   fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${INPUT.value}`)
   .then(response => {return response.json()})
   .then(data => {
-    console.log(data)
     limpaForm()  
     limpaDados()  
     populaAudio(data)
@@ -33,6 +32,7 @@ function limpaDados() {
   LISTA_NOUN.innerHTML = ''
   VERB.innerHTML = ''
   LISTA_VERB.innerHTML = ''
+  LISTA_SYN.innerHTML = ''
   MEAN_SYN[0].innerHTML = ''
   MEAN_SYN[1].innerHTML = ''
   MEAN_SYN[2].innerHTML = ''
@@ -74,52 +74,54 @@ let syn = Array()
 
 function verificaNounVerb(data) {
   console.log(data)
-  for(let i = 0; i < data[0].meanings.length; i++) {
-    //verifica se a palavra é substantivo
-    if(data[0].meanings[i].partOfSpeech === 'noun') {
-      const template = `
-      <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
-      `
-      NOUN.innerHTML = `${template}`
-      MEAN_SYN[0].innerHTML = 'Meaning'
-      for(let j = 0; j < data[0].meanings[i].definitions.length; j++) {
-        const noun = `
-        <li>${data[0].meanings[i].definitions[j].definition}</li>
+  for(let m = 0; m < data.length; m++) {
+    for(let i = 0; i < data[m].meanings.length; i++) {
+      //verifica se a palavra é substantivo
+      if(data[m].meanings[i].partOfSpeech === 'noun') {
+        const template = `
+        <div class="separator">noun</div>
         `
-        LISTA_NOUN.insertAdjacentHTML('beforeend', noun)
+        NOUN.innerHTML = `${template}`
+        MEAN_SYN[0].innerHTML = 'Meaning'
+        for(let j = 0; j < data[m].meanings[i].definitions.length; j++) {
+          const noun = `
+          <li>${data[m].meanings[i].definitions[j].definition}</li>
+          `
+          LISTA_NOUN.insertAdjacentHTML('beforeend', noun)
+        }
       }
-    }
-    if(data[0].meanings[i].synonyms.length !== 0) {
-      MEAN_SYN[1].innerHTML = 'Synonyms'
-      for(let j = 0; j < data[0].meanings[i].synonyms.length; j++) {
-        const syn = `
-        <li>${data[0].meanings[i].synonyms[j]}</li>
+      if(data[m].meanings[i].synonyms.length !== 0) {
+        MEAN_SYN[1].innerHTML = 'Synonyms'
+        for(let j = 0; j < data[m].meanings[i].synonyms.length; j++) {
+          const syn = `
+          <li>${data[m].meanings[i].synonyms[j]}</li>
+          `
+          LISTA_SYN.insertAdjacentHTML('beforeend', syn)
+        }
+      }
+      //verifica se a palavra é verbo
+      if(data[m].meanings[i].partOfSpeech === 'verb') {
+        const template = `
+        <div class="separator">verb</div>
         `
-        LISTA_SYN.insertAdjacentHTML('beforeend', syn)
+        VERB.innerHTML = `${template}`
+        MEAN_SYN[2].innerHTML = 'Meaning'
+        for(let k = 0; k < data[m].meanings[i].definitions.length; k++) {
+          const verb = `
+          <li>${data[m].meanings[i].definitions[k].definition}</li>
+          `
+          LISTA_VERB.insertAdjacentHTML('beforeend', verb)
+        }
       }
-    }
-    //verifica se a palavra é verbo
-    if(data[0].meanings[i].partOfSpeech === 'verb') {
-      const template = `
-      <div class="separator">${data[0].meanings[i].partOfSpeech}</div>
-      `
-      VERB.innerHTML = `${template}`
-      MEAN_SYN[2].innerHTML = 'Meaning'
-      for(let k = 0; k < data[0].meanings[i].definitions.length; k++) {
-        const verb = `
-        <li>${data[0].meanings[i].definitions[k].definition}</li>
-        `
-        LISTA_VERB.insertAdjacentHTML('beforeend', verb)
+      //verifica se a palavra tem url
+      if(data[m].sourceUrls) {
+        const SOURCE = document.getElementById('source')
+        const SOURCE_TITLE = document.querySelector('.source')
+        SOURCE_TITLE.classList.add('display-on')
+        SOURCE.setAttribute('href', `${data[m].sourceUrls[0]}`)
+        SOURCE.setAttribute('target', '_blank')
+        SOURCE.innerHTML = data[m].sourceUrls[0]
       }
-    }
-    //verifica se a palavra tem url
-    if(data[0].sourceUrls) {
-      const SOURCE = document.getElementById('source')
-      const SOURCE_TITLE = document.querySelector('.source')
-      SOURCE_TITLE.classList.add('display-on')
-      SOURCE.setAttribute('href', `${data[0].sourceUrls[0]}`)
-      SOURCE.setAttribute('target', '_blank')
-      SOURCE.innerHTML = data[0].sourceUrls[0]
     }
   }
 }
