@@ -6,6 +6,7 @@ const NOUN = document.getElementById('noun')
 const VERB = document.getElementById('verb')
 const MEAN_SYN = document.querySelectorAll('.mean-syn')
 const SYN = document.querySelector('.syn')
+const EMPTY = document.getElementById('empty')
 let audio = Array()
 let syn = Array()
 
@@ -14,8 +15,12 @@ const AUDIO = document.getElementById('audio').addEventListener('click', () => {
   playAudio.play()
 })
 
-const FORM = document.querySelector('form').addEventListener('submit', (e) => {
+const FORM = document.querySelector('form')
+
+FORM.addEventListener('submit', (e) => {
   e.preventDefault()
+  verificaInputVazio()
+  verificaExistePalavra()
   fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${INPUT.value}`)
   .then(response => {return response.json()})
   .then(data => {
@@ -36,6 +41,9 @@ window.addEventListener('DOMContentLoaded', () => {
     populaAudio(data)
     verificaNounVerb(data)
     word(data)
+  })
+  .catch(error => {
+    console.log(error)
   })
 })
 
@@ -80,6 +88,20 @@ function word(data) {
     }
   }
   PRONUNCIA.innerHTML = `${phonetic[0]}`
+}
+
+function verificaExistePalavra() {
+  if(INPUT.value === '') {
+    FORM.style.cssText = 'border: 1px solid #FF5252'
+    EMPTY.style.display = "block"
+  }
+}
+
+function verificaInputVazio() {
+  if(INPUT.value !== '') {
+    FORM.style.cssText = 'border: none'
+    EMPTY.style.display = 'none'
+  }
 }
 
 function verificaNounVerb(data) {
@@ -134,3 +156,15 @@ function verificaNounVerb(data) {
     }
   }
 }
+
+function inputFocus() {
+  INPUT.addEventListener('click', () => {
+    FORM.classList.add('form-clicked')
+  })
+  
+  INPUT.addEventListener('blur', () => {
+    FORM.classList.remove('form-clicked')
+  })
+}
+
+inputFocus()

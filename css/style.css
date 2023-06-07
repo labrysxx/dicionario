@@ -6,6 +6,7 @@
   --light-grey: #e9e9e9;
   --purple: #A445ED;
   --light-light-gray: #F4F4F4;
+  --red: #FF5252
 }
 
 body {
@@ -27,6 +28,10 @@ form {
   margin-top: 50px;
 }
 
+.form-clicked {
+  border: 1px solid var(--purple);
+}
+
 form button {
   margin-right: 10px;
 }
@@ -36,6 +41,12 @@ input {
   background-color: var(--light-light-gray);
   border-radius: 20px;
   padding: 20px 0 20px 24px;
+}
+
+#empty {
+  display: none;
+  margin-top: 5px;
+  color: var(--red);
 }
 
 textarea:focus, input:focus, select:focus {
@@ -125,6 +136,7 @@ main {
   grid-area: 6 / 2 / 7 / 3;
   color: var(--purple);
   font-weight: bold;
+  padding-left: 0;
 }
 
 .mean-syn {
