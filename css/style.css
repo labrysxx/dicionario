@@ -38,9 +38,14 @@ form button {
 
 input {
   border: none;
+  font-weight: bold;
   background-color: var(--light-light-gray);
   border-radius: 20px;
   padding: 20px 0 20px 24px;
+}
+
+input::placeholder {
+  font-weight: bold;
 }
 
 #empty {
@@ -81,6 +86,14 @@ main {
 
 .audio-div {
   justify-self: end;
+}
+
+svg:hover circle {
+  opacity: 1;
+}
+
+svg:hover path {
+  fill: #FFFFFF;
 }
 
 #pronuncia {
@@ -173,4 +186,18 @@ button {
 footer {
   justify-self: center;
   width: 40%;
+}
+
+.linha-separadora {
+  height: 1px;
+  background-color: var(--light-grey);
+}
+
+.source {
+  color: var(--dark-gray);
+  font-size: 14px;
+}
+
+footer a {
+  color: var(--dark);
 }
