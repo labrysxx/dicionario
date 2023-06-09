@@ -19,7 +19,6 @@ const FORM = document.querySelector('form')
 
 FORM.addEventListener('submit', (e) => {
   e.preventDefault()
-  verificaInputVazio()
   verificaExistePalavra()
   fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${INPUT.value}`)
   .then(response => {return response.json()})
@@ -94,11 +93,7 @@ function verificaExistePalavra() {
   if(INPUT.value === '') {
     FORM.style.cssText = 'border: 1px solid #FF5252'
     EMPTY.style.display = "block"
-  }
-}
-
-function verificaInputVazio() {
-  if(INPUT.value !== '') {
+  } else if(INPUT.value !== '') {
     FORM.style.cssText = 'border: none'
     EMPTY.style.display = 'none'
   }
@@ -160,6 +155,7 @@ function verificaNounVerb(data) {
 function inputFocus() {
   INPUT.addEventListener('click', () => {
     FORM.classList.add('form-clicked')
+    FORM.style.cssText = 'border: block'
   })
   
   INPUT.addEventListener('blur', () => {
