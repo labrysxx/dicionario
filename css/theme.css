@@ -1,0 +1,97 @@
+:root {
+  --black: #050505;
+  --dark-gray: #1f1f1f;
+  --white: #ffffff;
+  --purple: #A445ED;
+  --gray: #757575
+}
+
+.dark-mode-body {
+  background-color: var(--black); /* Cor de fundo do modo escuro */
+  color: var(--white); /* Cor do texto no modo escuro */
+}
+
+.dark-mode-sub {
+  color: var(--white);
+}
+
+.mean-syn-dark {
+  color: var(--gray);
+}
+
+.theme-nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dark-mode-nav {
+  background-color: var(--dark-gray);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--purple);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.cabecalho {
+  display: grid;
+  grid-template-columns: auto 200px;
+}
+
+.logo {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.theme {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}

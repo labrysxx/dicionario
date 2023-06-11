@@ -3,6 +3,10 @@
     display: inline-block;
   }
 
+  header {
+    margin-bottom: 16px;
+  }
+
   header, main, footer {
     width: 100%;
   }
@@ -15,4 +19,14 @@
     font-size: 32px;
   }
 
+  #pronuncia {
+    margin-top: 0;
+  }
+
+}
+
+@media screen and (min-width: 481px){
+  main {
+    grid-template-rows: 65px 50px 1fr;
+  }
 }
